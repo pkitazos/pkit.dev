@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+@theme {
+    --color-background: oklch(0.1788 0.0075 229.38);
+    --color-foreground: oklch(0.966 0.0042 308.24);
+    --color-muted: oklch(0.4811 0.0038 17.29);
+    --color-accent-100: oklch(0.83 0.1 281);
+    --color-accent-200: oklch(0.72 0.16 281);
+    --color-accent-400: oklch(0.59 0.25 281);
+    --color-accent-500: oklch(0.51 0.3 281);
+}

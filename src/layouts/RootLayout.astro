@@ -1,0 +1,32 @@
+---
+import "../styles/global.css";
+const { title } = Astro.props;
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
+    </head>
+    <body
+        class="text-foreground bg-background mx-20 relative min-h-svh flex flex-col"
+    >
+        <header class="min-h-28 mt-16">
+            <nav
+                class="flex flex-col justify-start items-start gap-1 text-muted font-mono"
+            >
+                <a href="#">README.md</a>
+                <a href="#">projects/</a>
+                <a href="#">blogs/</a>
+                <a href="#">cv</a>
+            </nav>
+        </header>
+        <slot />
+        <footer class="bottom-0 min-h-20 justify-center flex flex-col mb-8">
+            <p class="text-muted">© 2025-2026 Petros Kitazos</p>
+        </footer>
+    </body>
+</html>

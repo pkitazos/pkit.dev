@@ -1,16 +1,34 @@
 ---
-
+import "../styles/global.css";
+import RootLayout from "../layouts/RootLayout.astro";
 ---
 
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="viewport" content="width=device-width" />
-        <meta name="generator" content={Astro.generator} />
-        <title>home</title>
-    </head>
-    <body>
-        <h1>hello world</h1>
-    </body>
-</html>
+<RootLayout title="home">
+    <section class="flex flex-col flex-1">
+        <div class="my-auto flex justify-between items-center">
+            <div class="flex flex-col gap-2 max-w-md">
+                <h1 class="font-mono text-xl mb-8">Petros Kitazos</h1>
+                <p class="text-justify text-sm">
+                    Irure in in voluptate qui occaecat. Id excepteur quis dolore
+                    id. Pariatur ullamco mollit deserunt sit qui voluptate
+                    adipisicing exercitation magna sint proident. Reprehenderit
+                    cillum voluptate deserunt tempor ad eu irure sunt. Culpa
+                    nisi nisi commodo quis. Nostrud incididunt magna magna non
+                    amet excepteur proident exercitation mollit laborum sit
+                    magna dolore officia labore. Sint qui fugiat eu labore ea
+                    excepteur duis eiusmod enim adipisicing excepteur ea fugiat
+                    cupidatat.
+                </p>
+                <p class="text-justify text-sm">
+                    Culpa fugiat adipisicing ea nulla exercitation proident anim
+                    amet. Dolore ullamco quis occaecat aute aute. Cillum
+                    excepteur aute et ullamco incididunt magna deserunt
+                    excepteur sint anim. Culpa nostrud mollit ut ad Lorem in
+                    reprehenderit elit consectetur enim enim pariatur. Anim
+                    occaecat officia cupidatat est ex est.
+                </p>
+            </div>
+            <div class="bg-accent-500 size-26 rounded-full mr-40">&nbsp;</div>
+        </div>
+    </section>
+</RootLayout>
