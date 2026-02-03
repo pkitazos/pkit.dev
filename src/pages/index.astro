@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import RootLayout from "../layouts/RootLayout.astro";
+import Circle from "../components/circle.tsx";
 ---
 
 <RootLayout title="home">
@@ -10,16 +11,33 @@ import RootLayout from "../layouts/RootLayout.astro";
                 <h1 class="font-mono text-xl mb-8">Hello, I'm Petros</h1>
                 <p class="text-justify text-sm">
                     I'm a computer scientist from Cyprus based in <span
-                        class="text-accent-400">location</span
-                    >. I like to build software that no one uses, but that I
-                    find fun to build and use :)
+                        class="relative cursor-help
+                             after:absolute after:bottom-full after:left-1/2 after:-translate-x-1/2 after:mb-2
+                             after:px-2 after:py-1 after:rounded after:whitespace-nowrap
+                             after:bg-neutral-800 after:text-white after:text-xs
+                             after:content-[attr(data-tooltip)]
+                             after:opacity-0 after:invisible
+                             hover:after:opacity-100 hover:after:visible
+                             after:transition-all after:duration-200"
+                        data-tooltip="I move around a lot"
+                    >
+                        <span id="location" class="text-accent-400 font-mono"
+                            >some location</span
+                        >
+                    </span>. I like to build software that no one uses, but that
+                    I find fun to build and use :)
                 </p>
                 <p class="text-justify text-sm">
                     I'm interested in Programming Language theory, Type Systems,
                     Distributed Systems, Concurrency and Functional Programming.
-                    I built <a class="text-accent-200">Elixir-Maty</a> as part of
-                    my MSci project which brings <a class="text-accent-200"
-                        >Multiparty Session Types</a
+                    I built <a
+                        class="text-accent-200 hover:underline"
+                        href="https://github.com/pkitazos/elixir_maty"
+                        target="_blank">Elixir-Maty</a
+                    > as part of my MSci project which brings <a
+                        class="text-accent-200 hover:underline"
+                        href="http://mrg.doc.ic.ac.uk/publications/a-very-gentle-introduction-to-multiparty-session-types/main.pdf"
+                        target="_blank">Multiparty Session Types</a
                     > to Elixir.
                 </p>
                 <p class="text-justify text-sm">
@@ -28,7 +46,20 @@ import RootLayout from "../layouts/RootLayout.astro";
                     interactive
                 </p>
             </div>
-            <div class="bg-accent-500 size-26 rounded-full mr-40">&nbsp;</div>
+            <Circle client:idle className="mr-40" />
         </div>
+        <script>
+            const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            const el = document.getElementById("location");
+
+            if (el instanceof HTMLElement) {
+                setInterval(() => {
+                    el.innerText = el.innerText
+                        .split("")
+                        .map(() => letters[Math.floor(Math.random() * 26)])
+                        .join("");
+                }, 50);
+            }
+        </script>
     </section>
 </RootLayout>
