@@ -1,0 +1,59 @@
+---
+import RootLayout from "./RootLayout.astro";
+
+interface Props {
+    title: string;
+    id?: string;
+}
+
+const { title, id } = Astro.props;
+const { pathname } = Astro.url;
+
+const get_after_segment = (segment: string) => {
+    if (!pathname.startsWith(`/${segment}/`)) return;
+    const [_root, _segment, id, ..._rest] = pathname.split("/");
+    return id;
+};
+
+const current_project = get_after_segment("projects");
+const current_blog = get_after_segment("blog");
+---
+
+<RootLayout title={title} id={id}>
+    <header class="min-h-28 mt-16">
+        <nav
+            class="flex flex-col justify-start items-start gap-1 text-muted font-mono"
+        >
+            <a
+                class="hover:text-accent-100 in-[#home-page]:text-foreground"
+                href="/">README.md</a
+            >
+            <div>
+                <a
+                    class="hover:text-accent-100 in-[#projects-page]:text-foreground"
+                    href="/projects">projects/</a
+                >
+                {
+                    current_project && current_project !== "" && (
+                        <p>{current_project}</p>
+                    )
+                }
+            </div>
+            <div class="flex flex-row">
+                <a
+                    class="hover:text-accent-100 in-[#blog-page]:text-foreground"
+                    href="/blog">blog/</a
+                >
+                {current_blog && current_blog !== "" && <p>{current_blog}</p>}
+            </div>
+            <a
+                class="hover:text-accent-100 in-[#cv-page]:text-foreground"
+                href="/cv">cv</a
+            >
+        </nav>
+    </header>
+    <slot />
+    <footer class="bottom-0 min-h-20 justify-center flex flex-col mb-8">
+        <p class="text-muted">© 2026 Petros Kitazos</p>
+    </footer>
+</RootLayout>
