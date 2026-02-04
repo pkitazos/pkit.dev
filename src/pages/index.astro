@@ -1,10 +1,10 @@
 ---
-import "../styles/global.css";
-import RootLayout from "../layouts/RootLayout.astro";
-import Circle from "../components/circle.tsx";
+import "@/styles/global.css";
+import Layout from "@/layouts/RootLayout.astro";
+import Circle from "@/components/circle.tsx";
 ---
 
-<RootLayout title="home">
+<Layout title="home">
     <section class="flex flex-col flex-1">
         <div class="my-auto flex justify-between items-center">
             <div class="flex flex-col gap-2 max-w-md">
@@ -62,4 +62,4 @@ import Circle from "../components/circle.tsx";
             }
         </script>
     </section>
-</RootLayout>
+</Layout>

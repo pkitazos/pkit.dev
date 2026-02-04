@@ -1,0 +1,46 @@
+---
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
+const posts = await getCollection("blog");
+
+const blogs = posts
+    .map((post: CollectionEntry<"blog">) => ({
+        date: post.data.date,
+        title: post.data.title,
+        url: formatBlogPath(post.id),
+    }))
+    .sort((a, b) => b.date.getTime() - a.date.getTime());
+
+function formatBlogPath(id: string): string {
+    return id.replace(/\.(md|mdx)$/, "");
+}
+
+function formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = date.toLocaleDateString("en-US", { month: "short" });
+    return `${year} · ${month}`;
+}
+---
+
+<div>
+    {blogs.length === 0 && <p class="text-muted">No blog posts yet.</p>}
+
+    {
+        blogs.length > 0 && (
+            <ul>
+                {blogs.map(({ date, title, url }) => (
+                    <li class="flex items-center gap-4 mb-3">
+                        <p class="text-muted min-w-fit">{formatDate(date)}</p>
+                        <a
+                            href={`/blog/${url}`}
+                            class="hover:underline hover:decoration-2 hover:decoration-ctp-sky-600 hover:text-ctp-sky-600"
+                        >
+                            {title}
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        )
+    }
+</div>

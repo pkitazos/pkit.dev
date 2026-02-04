@@ -1,9 +1,11 @@
 ---
-import RootLayout from "../../layouts/RootLayout.astro";
+import BlogList from "@/components/BlogList.astro";
+import Layout from "@/layouts/RootLayout.astro";
 ---
 
-<RootLayout title="Blog">
+<Layout title="Blog">
     <section class="flex-1 pt-20">
         <h1 class="font-mono text-xl mb-8">Blog</h1>
+        <BlogList />
     </section>
-</RootLayout>
+</Layout>
