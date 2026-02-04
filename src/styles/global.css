@@ -10,3 +10,21 @@
     --color-accent-400: oklch(0.59 0.25 281); /* #6D58FF */
     --color-accent-500: oklch(0.51 0.3 281); /* #5D10FF */
 }
+
+::selection {
+    background-color: color-mix(
+        in srgb,
+        var(--color-accent-200) 10%,
+        transparent
+    );
+    color: var(--color-accent-400);
+}
+
+::-moz-selection {
+    background-color: color-mix(
+        in srgb,
+        var(--color-accent-200) 10%,
+        transparent
+    );
+    color: var(--color-accent-400);
+}
