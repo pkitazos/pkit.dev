@@ -24,7 +24,19 @@ const current_blog = get_after_segment("blog");
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" type="image/svg+xml" href="/favicon-black.svg" />
+        <link
+            rel="icon"
+            type="image/svg+xml"
+            href="/favicon-black.svg"
+            media="(prefers-color-scheme: light)"
+        />
+        <link
+            rel="icon"
+            type="image/svg+xml"
+            href="/favicon-accent.svg"
+            media="(prefers-color-scheme: dark)"
+        />
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
         <title>Petros Kitazos</title>
