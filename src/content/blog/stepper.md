@@ -1,7 +1,7 @@
 ---
 title: Building a λ-calculus stepper
 date: 2026-02-04
-draft: false
+draft: true
 ---
 
 take some term to some other term
