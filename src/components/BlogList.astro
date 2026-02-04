@@ -1,11 +1,11 @@
 ---
 import { getCollection } from "astro:content";
-import type { CollectionEntry } from "astro:content";
 
 const posts = await getCollection("blog");
 
 const blogs = posts
-    .map((post: CollectionEntry<"blog">) => ({
+    .filter((x) => import.meta.env.DEV || !x.data.draft)
+    .map((post) => ({
         date: post.data.date,
         title: post.data.title,
         url: formatBlogPath(post.id),

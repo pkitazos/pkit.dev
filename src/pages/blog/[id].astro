@@ -7,11 +7,8 @@ import type { CollectionEntry } from "astro:content";
 export const getStaticPaths = async () => {
     const posts = await getCollection("blog");
     return posts
-        .filter(
-            (x: CollectionEntry<"blog">) =>
-                import.meta.env.DEV || !x.data.draft,
-        )
-        .map((post: CollectionEntry<"blog">) => ({
+        .filter((x) => import.meta.env.DEV || !x.data.draft)
+        .map((post) => ({
             params: { id: post.id },
             props: { post },
         }));
