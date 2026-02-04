@@ -1,7 +1,24 @@
 ---
 import "../styles/global.css";
-const { title } = Astro.props;
-const pageId = title.toLowerCase().replace(/\s+/g, "-") + "-page";
+
+interface Props {
+    title: string;
+    id?: string;
+}
+
+const { title, id } = Astro.props;
+const { pathname } = Astro.url;
+
+const pageId = id ? id : title.toLowerCase().replace(/\s+/g, "-") + "-page";
+
+const get_after_segment = (segment: string) => {
+    if (!pathname.startsWith(`/${segment}/`)) return;
+    const [_root, _segment, id, ..._rest] = pathname.split("/");
+    return id;
+};
+
+const current_project = get_after_segment("projects");
+const current_blog = get_after_segment("blog");
 ---
 
 <html lang="en">
@@ -24,14 +41,28 @@ const pageId = title.toLowerCase().replace(/\s+/g, "-") + "-page";
                     class="hover:text-accent-100 in-[#home-page]:text-foreground"
                     href="/">README.md</a
                 >
-                <a
-                    class="hover:text-accent-100 in-[#projects-page]:text-foreground"
-                    href="/projects">projects/</a
-                >
-                <a
-                    class="hover:text-accent-100 in-[#blog-page]:text-foreground"
-                    href="/blog">blog/</a
-                >
+                <div>
+                    <a
+                        class="hover:text-accent-100 in-[#projects-page]:text-foreground"
+                        href="/projects">projects/</a
+                    >
+                    {
+                        current_project && current_project !== "" && (
+                            <p>{current_project}</p>
+                        )
+                    }
+                </div>
+                <div class="flex flex-row">
+                    <a
+                        class="hover:text-accent-100 in-[#blog-page]:text-foreground"
+                        href="/blog">blog/</a
+                    >
+                    {
+                        current_blog && current_blog !== "" && (
+                            <p>{current_blog}</p>
+                        )
+                    }
+                </div>
                 <a
                     class="hover:text-accent-100 in-[#cv-page]:text-foreground"
                     href="/cv">cv</a
