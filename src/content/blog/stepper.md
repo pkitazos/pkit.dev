@@ -1,18 +1,96 @@
 ---
 title: Building a λ-calculus stepper
-date: 2026-02-04
+date: 2026-02-05
 draft: true
 ---
 
-take some term to some other term
 
-we have 3 types of terms 
+While I was learning about the lambda calculus, I would often find myself having to write out lambda expressions on paper and then manually write my reductions one line at a time until I reached the final reduced term.
+
+-- picture here
+
+And sometimes (often) I would make mistakes and have to rewrite things. It's just not a particularly scalable solution. So I figured I'd build an interpreter for it myself but one which only performs one reduction step at a time.
+
+As far as I could tell there were 2 ways for me to do this:
+1. Build a regular interpreter, but have it log every reduction step it makes and then once I have that list of steps I would just build a UI which is a pointer to a particular frame in the complete list of steps. The problem with this is that it required that all expressions entered reduce to a terminal state. This just isn't true if all lambda terms. Think of the Y combinator for example (the reason I'm building this) it reduces forever. So our program would never terminate and so the complete list of terms would never be produced (because no such list can be represented).
+2. This leaves option 2, build a stepper.
+
+A stepper, or stepping evaluator does what it sounds like. It takes a term and performs one reduction step. The problem with this is that I would need to define what the correct order of reductions is.
+
+because the lambda calculus is a pure language it's not like the order matters, but still I wanted to have predictable results when stepping through a reduction.
+
+For example:
+
+-- super long expression example where reductions are happening in one place and then jump to another place.
+
+
+# How does a stepper work
+
+Let's say we have some type for our terms.
+
+```rust
+enum Term { 
+    // different types of terms go here
+}
+```
+
+Then our stepper might be a function which looks like this:
+
+```rust
+fn step(term: Term) -> Term
+```
+
+It's just a function which takes some term to some other term. What kind of term to what kind of term? Well that depends on the term that goes in.
+
+In the Untyped Lambda Calculus we only have 3 kinds of terms:
 
 1. Variables
 2. Lambda expressions
 3. Function application
 
-a stepper is a function that takes one term and performs one reduction step. Variables (1) and Lambda Terms (2) can't be reduced further. The only type of term that can be reduced is a function application term.
+So filling in our terms type:
+
+```rust
+enum Term {
+    Var(String),
+    Lambda(String, Term)
+    App(Term, Term)
+}
+```
+
+In reality we probably need to add some boxes around these because the size of our terms aren't really known ahead of time, but for the sake of this write-up let's not worry about those.
+
+So a stepper is a function that takes one term and performs one reduction step. 
+
+Let's consider how our stepper would handle each kind of term.
+
+## Variables
+
+How do we reduce the following expression further?
+
+```
+x
+```
+
+Right, we can't. So this case is handled quite easily, our stepper would not be able to reduce a variable any further.
+
+## Lambda Expressions
+
+How do we reduce the following expression further?
+
+```
+λx.x
+```
+
+Can't do it. Cool, this also stays the same, except hang on. What about a function like this?
+
+```
+λx.(λy.y) x
+```
+
+Is this not reducible? Yes it is. So the body of a lambda expression can be reduced further (sometimes). 
+
+Variables (1) and Lambda Terms (2) can't be reduced further. The only type of term that can be reduced is a function application term.
 
 and really the only kind of reduction we're able to do at that point is if the LHS term is a lambda expression. so really for our stepper to work we need to write a function that takes a lambda term and some arbitrary term t.
 
