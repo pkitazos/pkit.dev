@@ -3,11 +3,9 @@ title: Building a λ-calculus stepper
 date: 2026-02-05
 draft: true
 ---
-
-
 While I was learning about the lambda calculus, I would often find myself having to write out lambda expressions on paper and then manually write my reductions one line at a time until I reached the final reduced term.
 
--- picture here
+-- picture of my handwritten scribbles here
 
 And sometimes (often) I would make mistakes and have to rewrite things. It's just not a particularly scalable solution. So I figured I'd build an interpreter for it myself but one which only performs one reduction step at a time.
 
@@ -21,7 +19,7 @@ because the lambda calculus is a pure language it's not like the order matters, 
 
 For example:
 
--- super long expression example where reductions are happening in one place and then jump to another place.
+-- a super long expression example where reductions are happening in one place and then when we move on to the next line to show the next reduction step, instead of the reduction happening close to where we were just reducing it jumps to another place.
 
 
 # How does a stepper work
@@ -88,17 +86,43 @@ Can't do it. Cool, this also stays the same, except hang on. What about a functi
 λx.(λy.y) x
 ```
 
-Is this not reducible? Yes it is. So the body of a lambda expression can be reduced further (sometimes). 
+Is this not reducible? Yes it is. So the body of a lambda expression can be reduced further (sometimes). In this case the body of the lambda expression can be reduced, because it contains a function application.
 
-Variables (1) and Lambda Terms (2) can't be reduced further. The only type of term that can be reduced is a function application term.
+So if we have an expression like this:
 
-and really the only kind of reduction we're able to do at that point is if the LHS term is a lambda expression. so really for our stepper to work we need to write a function that takes a lambda term and some arbitrary term t.
+```
+(λx.(λy.y) x) z
+```
+
+Should this be reduced like this?
+
+```
+-- option A
+(λx.(λy.y) x) z
+(λy.y) z
+z
+```
+
+Or like this:
+
+```
+-- option B
+(λx.(λy.y) x) z
+(λx. x) z
+z
+```
+
+Maybe we should reduce left-to-right? That would actually mirror our interpreter where we first reduce the LHS term completely, then we reduce the RHS completely and then we apply RHS to LHS. So in this case we would first step through the LHS until we can no longer step, then we would step through the RHS until we can no longer step, and finally we would step across. So that would be option B from the above.
+
+---
+
+So really the only kind of reduction we're able to do is if the LHS term is a lambda expression. so really for our stepper to work we need to write a function that takes a lambda term and some arbitrary term `t`.
 
 ```
 sub(x, body, t)
 ```
 
-and what it should do is sub t for x in body.
+and what it should do is sub `t` for `x` in `body`.
 
 but we can't be substituting stuff in there willy nilly. We need to be careful not to use names that we're not allowed to.
 
