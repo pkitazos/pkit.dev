@@ -1,7 +1,7 @@
 import { cn } from "@/utils";
 import type { ClassValue } from "clsx";
 
-export default function GitHubIcon({ className }: { className: ClassValue }) {
+export default function GitHubIcon({ className }: { className?: ClassValue }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

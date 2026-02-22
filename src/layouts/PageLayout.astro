@@ -1,5 +1,6 @@
 ---
 import RootLayout from "./RootLayout.astro";
+import GitHubIcon from "@/components/GitHubIcon";
 
 interface Props {
     title: string;
@@ -20,7 +21,7 @@ const current_blog = get_after_segment("blog");
 ---
 
 <RootLayout title={title} id={id}>
-    <header class="min-h-28 mt-16">
+    <header class="min-h-28 mt-16 justify-between flex">
         <nav
             class="flex flex-col justify-start items-start gap-1 text-muted font-mono"
         >
@@ -51,6 +52,13 @@ const current_blog = get_after_segment("blog");
                 href="/cv">cv</a
             >
         </nav>
+        <a
+            href="https://github.com/pkitazos"
+            target="_blank"
+            class="hover:text-indigo-400 hover:pointer-cursor"
+        >
+            <GitHubIcon />
+        </a>
     </header>
     <slot />
     <footer class="bottom-0 min-h-20 justify-center flex flex-col mb-8">
