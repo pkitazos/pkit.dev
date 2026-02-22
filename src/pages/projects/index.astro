@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/PageLayout.astro";
+import ProjectListItem from "@/components/ProjectListItem.astro";
 ---
 
 <Layout title="Projects" id="projects">
@@ -9,14 +10,32 @@ import Layout from "@/layouts/PageLayout.astro";
             An incomplete list of incomplete projects. In the future, I'd like
             to write a little bit about each of these.
         </p>
-        <ul class="list-disc ml-4">
-            <li>elixir_maty</li>
-            <li>amps</li>
-            <li>cx</li>
-            <li>cipher</li>
-            <li>rad</li>
-            <li>st_parser</li>
-            <li>scheduler_dsl</li>
+        <ul role="list" class="list-disc ml-4">
+            <ProjectListItem
+                name="elixir_maty"
+                href="https://github.com/pkitazos/elixir_maty"
+            />
+            <ProjectListItem
+                name="amps"
+                href="https://github.com/amps-kt/spa"
+            />
+            <ProjectListItem name="cx" href="https://github.com/pkitazos/cx" />
+            <ProjectListItem
+                name="cipher"
+                href="https://github.com/pkitazos/cipher"
+            />
+            <ProjectListItem
+                name="rad"
+                href="https://github.com/ARLJohnston/really-awesome-lisp-dialect"
+            />
+            <ProjectListItem
+                name="st_parser"
+                href="https://github.com/pkitazos/st_parser"
+            />
+            <ProjectListItem
+                name="scheduler_dsl"
+                href="https://github.com/pkitazos/scheduler_dsl"
+            />
         </ul>
     </section>
 </Layout>

@@ -14,6 +14,6 @@ export default function Circle({ className }: { className: ClassValue }) {
         duration: 0.4,
         scale: { type: "spring", visualDuration: 0.4, bounce: 0.5 },
       }}
-    ></motion.div>
+    />
   );
 }
