@@ -5,7 +5,7 @@ import { cn } from "../utils";
 export default function Circle({ className }: { className: ClassValue }) {
   return (
     <motion.div
-      className={cn("bg-accent-500 size-26 rounded-full", className)}
+      className={cn("bg-accent-500 size-20 lg:size-26 rounded-full", className)}
       whileTap={{ scale: 2 }}
       whileHover={{ scale: 1.05 }}
       initial={{ opacity: 0, scale: 0 }}

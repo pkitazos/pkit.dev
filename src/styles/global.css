@@ -28,3 +28,54 @@
     );
     color: var(--color-accent-400);
 }
+
+@utility dbg-* {
+    outline: 2px solid --value(--color-*);
+}
+
+@utility debug-screens {
+    &::before {
+        position: fixed;
+        top: 0.75rem;
+        left: 0.75rem;
+        z-index: 9999;
+        padding: 0.25rem 0.75rem;
+        border-radius: 0.5rem;
+        font-family: monospace;
+        font-weight: 600;
+        font-size: 0.875rem;
+        content: "<sm";
+        background-color: var(--color-lime-500);
+    }
+
+    @media (width >= theme(--breakpoint-sm)) {
+        &::before {
+            content: "sm";
+            background-color: var(--color-amber-500);
+        }
+    }
+    @media (width >= theme(--breakpoint-md)) {
+        &::before {
+            content: "md";
+            background-color: var(--color-red-500);
+        }
+    }
+    @media (width >= theme(--breakpoint-lg)) {
+        &::before {
+            content: "lg";
+            background-color: var(--color-purple-500);
+        }
+    }
+    @media (width >= theme(--breakpoint-xl)) {
+        &::before {
+            content: "xl";
+            background-color: var(--color-sky-500);
+        }
+    }
+    @media (width >= theme(--breakpoint-2xl)) {
+        &::before {
+            content: "2xl";
+            background-color: var(--color-emerald-500);
+        }
+    }
+}

@@ -1,14 +1,20 @@
 ---
 import "@/styles/global.css";
 import Layout from "@/layouts/PageLayout.astro";
-import Circle from "@/components/circle.tsx";
+import Circle from "@/components/Circle.tsx";
 ---
 
 <Layout title="home">
     <section class="flex flex-col flex-1">
         <div class="my-auto flex justify-between items-center">
             <div class="flex flex-col gap-2 max-w-md">
-                <h1 class="font-mono text-xl mb-8">Hello, I'm Petros</h1>
+                <div class="flex justify-between items-center mb-8">
+                    <h1 class="font-mono text-xl">Hello, I'm Petros</h1>
+                    <Circle
+                        client:idle
+                        className="block md:hidden size-5 mr-10"
+                    />
+                </div>
                 <p class="text-justify text-sm">
                     I'm a computer scientist from Cyprus based in <span
                         class="relative cursor-help
@@ -46,7 +52,12 @@ import Circle from "@/components/circle.tsx";
                     interactive.
                 </p>
             </div>
-            <Circle client:idle className="mr-40" />
+            <div class="hidden md:block flex-1 justify-end w-full">
+                <Circle
+                    client:idle
+                    className="ml-auto md:mx-auto lg:mr-40 size-20 lg:size-26"
+                />
+            </div>
         </div>
         <script>
             const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
