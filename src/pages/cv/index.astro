@@ -1,6 +1,6 @@
 ---
 import Layout from "@/layouts/PageLayout.astro";
-import ProjectListItem from "@/components/ProjectListItem.astro";
+import CvListItem from "@/components/CvListItem.astro";
 ---
 
 <Layout title="CV">
@@ -8,8 +8,8 @@ import ProjectListItem from "@/components/ProjectListItem.astro";
     <h1 class="font-mono text-xl mb-8">CV</h1>
     <p class="my-3 text-muted max-w-xl">Depending on what you're after:</p>
     <ul role="list" class="list-disc ml-4">
-      <ProjectListItem name="industry.pdf" href="/cv/petros-kitazos-industry.pdf" />
-      <ProjectListItem name="academic.pdf" href="/cv/petros-kitazos-academic.pdf" />
+      <CvListItem name="industry" ext="pdf" href="/cv/petros-kitazos-industry.pdf" />
+      <CvListItem name="academic" ext="pdf" href="/cv/petros-kitazos-academic.pdf" />
     </ul>
   </section>
 </Layout>
