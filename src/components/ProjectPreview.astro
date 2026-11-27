@@ -1,0 +1,44 @@
+---
+import { render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+    project: CollectionEntry<"projects">;
+}
+
+const { project } = Astro.props;
+const { name, href, status, stack } = project.data;
+const { Content } = await render(project);
+
+const url = new URL(href);
+const repo = (url.host + url.pathname).replace(/\/$/, "");
+---
+
+<aside
+    class="font-mono text-sm border-y border-muted"
+    aria-label={`Preview of ${name}`}
+>
+    <div class="px-4 py-2 border-b border-muted">
+        <span class="text-muted">File:</span>
+        {name}.md
+    </div>
+    <dl class="px-4 py-2 grid grid-cols-[auto_1fr] gap-x-4 border-b border-muted">
+        <dt class="text-muted">status</dt>
+        <dd>{status}</dd>
+        <dt class="text-muted">stack</dt>
+        <dd>{stack.join(", ")}</dd>
+        <dt class="text-muted">repo</dt>
+        <dd>
+            <a
+                href={href}
+                target="_blank"
+                class="text-accent-100 hover:underline">{repo}</a
+            >
+        </dd>
+    </dl>
+    <div
+        class="px-4 py-3 prose prose-sm dark:prose-invert max-w-none font-mono prose-p:text-foreground"
+    >
+        <Content />
+    </div>
+</aside>

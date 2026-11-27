@@ -1,42 +1,79 @@
 ---
+import { getCollection } from "astro:content";
 import Layout from "@/layouts/PageLayout.astro";
 import ProjectListItem from "@/components/ProjectListItem.astro";
+import ProjectPreview from "@/components/ProjectPreview.astro";
+
+const projects = (await getCollection("projects")).sort(
+    (a, b) => a.data.order - b.data.order,
+);
 ---
 
 <Layout title="Projects" id="projects">
     <section class="flex-1 pt-20">
         <h1 class="font-mono text-xl mb-8">Projects</h1>
-        <p class="my-3 text-muted max-w-xl">
-            An incomplete list of incomplete projects. In the future, I'd like
-            to write a little bit about each of these.
-        </p>
-        <ul role="list" class="list-disc ml-4">
-            <ProjectListItem
-                name="elixir_maty"
-                href="https://github.com/pkitazos/elixir_maty"
-            />
-            <ProjectListItem
-                name="amps"
-                href="https://github.com/amps-kt/spa"
-            />
-            <ProjectListItem
-                name="git-jmp"
-                href="https://github.com/pkitazos/git-jmp"
-            />
-            <ProjectListItem name="cx" href="https://github.com/pkitazos/cx" />
-            <ProjectListItem name="cipher" href="https://cipher.pkit.dev" />
-            <ProjectListItem
-                name="rad"
-                href="https://github.com/ARLJohnston/really-awesome-lisp-dialect"
-            />
-            <ProjectListItem
-                name="st_parser"
-                href="https://github.com/pkitazos/st_parser"
-            />
-            <ProjectListItem
-                name="scheduler_dsl"
-                href="https://github.com/pkitazos/scheduler_dsl"
-            />
-        </ul>
+        <div class="md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] md:gap-12">
+            <div>
+                <p class="my-3 text-muted max-w-xl">
+                    An incomplete list of incomplete projects. In the future,
+                    I'd like to write a little bit about each of these.
+                </p>
+                <ul role="list" class="list-disc ml-4">
+                    {projects.map(({ id, data }) => (
+                        <ProjectListItem id={id} name={data.name} />
+                    ))}
+                </ul>
+            </div>
+            <div class="mt-8 md:mt-0">
+                {projects.map((project) => (
+                    <div id={`preview-${project.id}`} hidden>
+                        <ProjectPreview project={project} />
+                    </div>
+                ))}
+            </div>
+        </div>
     </section>
 </Layout>
+
+<script>
+    const buttons = document.querySelectorAll<HTMLButtonElement>(
+        "button[data-project]",
+    );
+    const previews = document.querySelectorAll<HTMLElement>("[id^='preview-']");
+
+    const select = (id: string | null) => {
+        buttons.forEach((b) =>
+            b.setAttribute("aria-expanded", String(b.dataset.project === id)),
+        );
+        previews.forEach((p) => {
+            p.hidden = p.id !== `preview-${id}`;
+        });
+    };
+
+    document.addEventListener("click", (e) => {
+        const target = e.target as Element;
+        const button = target.closest<HTMLButtonElement>(
+            "button[data-project]",
+        );
+
+        if (button) {
+            const open = button.getAttribute("aria-expanded") === "true";
+            const id = open ? null : button.dataset.project!;
+            select(id);
+            // below md the preview stacks under the list, so bring it into view
+            if (id && !window.matchMedia("(min-width: 768px)").matches) {
+                document
+                    .getElementById(`preview-${id}`)
+                    ?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+            }
+            return;
+        }
+        // clicks inside the preview shouldn't dismiss it (e.g. the repo link)
+        if (target.closest("[id^='preview-']")) return;
+        select(null);
+    });
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") select(null);
+    });
+</script>
