@@ -2,6 +2,7 @@
   "name": "pkit.dev",
   "version": "0.0.1",
   "type": "module",
+  "packageManager": "pnpm@11.27.0",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
