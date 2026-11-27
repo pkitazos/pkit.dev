@@ -25,6 +25,7 @@ pnpm-debug.log*
 
 # editor specific files
 .vscode/
+.envrc
 
 # project management specific files
 .obsidian/
