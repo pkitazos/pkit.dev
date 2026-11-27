@@ -1,12 +1,14 @@
 {
   "name": "pkit.dev",
-  "type": "module",
   "version": "0.0.1",
+  "type": "module",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "format": "oxfmt .",
+    "format:check": "oxfmt --check ."
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.13",
@@ -27,7 +29,9 @@
     "vfile": "6.0.3"
   },
   "devDependencies": {
+    "@astrojs/compiler-rs": "^0.5.3",
     "@types/mdast": "4.0.4",
+    "oxfmt": "^0.80.0",
     "unist-util-visit": "5.1.0"
   }
 }

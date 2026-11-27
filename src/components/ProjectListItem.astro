@@ -1,20 +1,20 @@
 ---
 interface Props {
-    id: string;
-    name: string;
+  id: string;
+  name: string;
 }
 
 const { id, name } = Astro.props;
 ---
 
 <li class="hover:underline decoration-2 hover:decoration-indigo-500 hover:marker:text-indigo-500 hover:translate-x-1.5 transition-transform has-aria-expanded:text-accent-100 has-aria-expanded:marker:text-accent-100">
-    <button
-        type="button"
-        data-project={id}
-        aria-expanded="false"
-        aria-controls={`preview-${id}`}
-        class="cursor-pointer text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-100"
-    >
-        {name}
-    </button>
+  <button
+    type="button"
+    data-project={id}
+    aria-expanded="false"
+    aria-controls={`preview-${id}`}
+    class="cursor-pointer text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-100"
+  >
+    {name}
+  </button>
 </li>

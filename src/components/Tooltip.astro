@@ -1,13 +1,13 @@
 ---
 interface Props {
-    tip: string;
+  tip: string;
 }
 
 const { tip } = Astro.props;
 ---
 
 <span
-    class="relative cursor-help w-max
+  class="relative cursor-help w-max
          after:absolute after:bottom-full after:left-1/2 after:-translate-x-1/2 after:mb-2
          after:px-2 after:py-1 after:rounded after:whitespace-nowrap
          after:bg-neutral-800 after:text-white after:text-xs
@@ -15,7 +15,7 @@ const { tip } = Astro.props;
          after:opacity-0 after:invisible
          hover:after:opacity-100 hover:after:visible
          after:transition-all after:duration-200"
-    data-tooltip={tip}
+  data-tooltip={tip}
 >
-    <slot />
+  <slot />
 </span>

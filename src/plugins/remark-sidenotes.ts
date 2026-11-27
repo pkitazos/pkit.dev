@@ -1,10 +1,4 @@
-import type {
-  FootnoteDefinition,
-  Node,
-  PhrasingContent,
-  Root,
-  RootContent,
-} from "mdast";
+import type { FootnoteDefinition, Node, PhrasingContent, Root, RootContent } from "mdast";
 import type { VFile } from "vfile";
 import { visit } from "unist-util-visit";
 
@@ -50,9 +44,7 @@ export default function remarkSidenotes() {
           "label",
           {
             htmlFor: id,
-            className: isMargin
-              ? ["sidenote-toggle"]
-              : ["sidenote-toggle", "sidenote-number"],
+            className: isMargin ? ["sidenote-toggle"] : ["sidenote-toggle", "sidenote-number"],
           },
           isMargin ? [{ type: "text", value: "⊕" }] : [],
         ),
@@ -105,9 +97,6 @@ function toPhrasing(node: Node, file: VFile): PhrasingContent[] {
       return (node as Extract<RootContent, { type: "paragraph" }>).children;
 
     default:
-      file.fail(
-        `sidenotes can only contain paragraphs, found ${node.type}`,
-        node,
-      );
+      file.fail(`sidenotes can only contain paragraphs, found ${node.type}`, node);
   }
 }

@@ -3,6 +3,7 @@ title: Building a λ-calculus stepper
 date: 2026-02-05
 draft: true
 ---
+
 While I was learning about the lambda calculus, I would often find myself having to write out lambda expressions on paper and then manually write my reductions one line at a time until I reached the final reduced term.
 
 -- picture of my handwritten scribbles here
@@ -10,6 +11,7 @@ While I was learning about the lambda calculus, I would often find myself having
 And sometimes (often) I would make mistakes and have to rewrite things. It's just not a particularly scalable solution. So I figured I'd build an interpreter for it myself but one which only performs one reduction step at a time.
 
 As far as I could tell there were 2 ways for me to do this:
+
 1. Build a regular interpreter, but have it log every reduction step it makes and then once I have that list of steps I would just build a UI which is a pointer to a particular frame in the complete list of steps. The problem with this is that it required that all expressions entered reduce to a terminal state. This just isn't true if all lambda terms. Think of the Y combinator for example (the reason I'm building this) it reduces forever. So our program would never terminate and so the complete list of terms would never be produced (because no such list can be represented).
 2. This leaves option 2, build a stepper.
 
@@ -21,13 +23,12 @@ For example:
 
 -- a super long expression example where reductions are happening in one place and then when we move on to the next line to show the next reduction step, instead of the reduction happening close to where we were just reducing it jumps to another place.
 
-
 # How does a stepper work
 
 Let's say we have some type for our terms.
 
 ```rust
-enum Term { 
+enum Term {
     // different types of terms go here
 }
 ```
@@ -58,7 +59,7 @@ enum Term {
 
 In reality we probably need to add some boxes around these because the size of our terms aren't really known ahead of time, but for the sake of this write-up let's not worry about those.
 
-So a stepper is a function that takes one term and performs one reduction step. 
+So a stepper is a function that takes one term and performs one reduction step.
 
 Let's consider how our stepper would handle each kind of term.
 
@@ -133,6 +134,7 @@ a := λx.λy.x y
 ```
 
 as our LHS, and
+
 ```
 t := y
 ```
@@ -144,6 +146,7 @@ if we were to substitute every occurrence of x for y as is we would get a new te
 ```
 a' := λy. y y
 ```
+
 which is not semantically the same.
 
 so we need to do some renaming.

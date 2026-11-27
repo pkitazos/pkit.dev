@@ -5,13 +5,13 @@ import { getCollection, render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 
 export const getStaticPaths = async () => {
-    const posts = await getCollection("blog");
-    return posts
-        .filter((x) => import.meta.env.DEV || !x.data.draft)
-        .map((post) => ({
-            params: { id: post.id },
-            props: { post },
-        }));
+  const posts = await getCollection("blog");
+  return posts
+    .filter((x) => import.meta.env.DEV || !x.data.draft)
+    .map((post) => ({
+      params: { id: post.id },
+      props: { post },
+    }));
 };
 
 const { post } = Astro.props;
@@ -19,12 +19,10 @@ const { Content } = await render(post);
 ---
 
 <Layout title={post.data.title} id="blog-page">
-    <header class="mb-8">
-        <h1 class="text-3xl font-bold mb-4 text-foreground font-mono mt-10">
-            {post.data.title}
-        </h1>
-    </header>
-    <Prose>
-        <Content />
-    </Prose>
+  <header class="mb-8">
+    <h1 class="text-3xl font-bold mb-4 text-foreground font-mono mt-10">{post.data.title}</h1>
+  </header>
+  <Prose>
+    <Content />
+  </Prose>
 </Layout>
